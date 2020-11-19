@@ -56,11 +56,17 @@ function getItemByCick(event) {
     if (galleryRef) {
         overlayRef.classList.add('is-open');
     }
+    changeSrc(event);
+    
+}
+
+function changeSrc(event) {
     const largeImageURL = event.target.dataset.source;
     lightBoxImage.src = largeImageURL;
     const largeImageAlt = event.target.alt;
     lightBoxImage.alt = largeImageAlt;
 }
+
 
 
 function removeSrc() {
@@ -70,16 +76,19 @@ function removeSrc() {
 
 
 function closeOverlayBtn() {
-    overlayRef.classList.remove('is-open');
-    removeSrc();
+    if (overlayRef.classList.contains('is-open')) {
+        overlayRef.classList.remove('is-open');
+        removeSrc();
+    }
+    
 }
 
 
 function closeOverlayByEsc(event) {
-    if (event.key === 'Escape') {
+    if (overlayRef.classList.contains('is-open') && event.code === 'Escape') {
         overlayRef.classList.remove('is-open');
+        removeSrc();
     }
-    removeSrc();
 }
 
 
